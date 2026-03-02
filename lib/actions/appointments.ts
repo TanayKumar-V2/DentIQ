@@ -1,3 +1,5 @@
+"use server"
+
 import { prisma } from "../prisma";
 
 
@@ -22,5 +24,6 @@ export async function getAppointments(){
         return appointments
     } catch (error) {
         console.error("Failed to fetch appointments",error)
+        throw new Error("Failed to fetch appointments")
     }
 }
