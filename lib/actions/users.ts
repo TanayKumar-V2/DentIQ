@@ -1,9 +1,9 @@
 "use server"
 
 import { currentUser } from "@clerk/nextjs/server"
-import {prisma} from "../prisma"
+import { prisma } from "../prisma"
 
-export async function syncUser(){
+export async function syncUser() {
   try {
     const user = await currentUser()
     if (!user) return null
@@ -47,17 +47,26 @@ export async function syncUser(){
       })
     }
 
-    const dbUser = await prisma.user.create({
-      data: {
-        clerkId: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email,
-        phone: user.phoneNumbers[0]?.phoneNumber,
-      },
-    })
-
-    return dbUser
+    try {
+      const dbUser = await prisma.user.create({
+        data: {
+          clerkId: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email,
+          phone: user.phoneNumbers[0]?.phoneNumber,
+        },
+      })
+      return dbUser
+    } catch (error: any) {
+      if (error.code === 'P2002') {
+        const existingUser = await prisma.user.findUnique({
+          where: { clerkId: user.id },
+        })
+        if (existingUser) return existingUser
+      }
+      throw error
+    }
   } catch (error) {
     console.error("Error in syncUser", error)
     throw error
