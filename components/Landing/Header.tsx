@@ -29,7 +29,7 @@ function Header() {
           </a>
         </div>
         <div className="flex items-center gap-3">
-          <SignInButton>
+          <SignInButton mode="modal">
             <Button variant={"ghost"} size={"sm"}>
               SignIn
             </Button>
