@@ -245,6 +245,7 @@ function VapiWidget() {
                 alt="User"
                 width={128}
                 height={128}
+                unoptimized
                 className="size-full object-cover rounded-full"
               />
             </div>

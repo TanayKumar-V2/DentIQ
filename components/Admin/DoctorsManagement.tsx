@@ -8,7 +8,7 @@ import { Badge } from "../ui/badge";
 import AddDoctorDialog from "./AddDoctorDialog";
 import EditDoctorDialog from "./EditDoctorDialog";
 import { Doctor } from "@prisma/client";
-import { generateAvatarFallback } from "@/lib/utils";
+import { getDoctorAvatarSrc } from "@/lib/utils";
 
 function DoctorsManagement() {
   const { data: doctors = [] } = useGetDoctors();
@@ -27,16 +27,7 @@ function DoctorsManagement() {
     setSelectedDoctor(null);
   };
 
-  const getDoctorAvatarSrc = (doctor: Doctor) => {
-    if (!doctor.imageUrl) return generateAvatarFallback(doctor.name);
 
-    // Some older records use a slow avatar host that frequently times out.
-    if (doctor.imageUrl.includes("avatar.iran.liara.run")) {
-      return generateAvatarFallback(doctor.name);
-    }
-
-    return doctor.imageUrl;
-  };
 
   return (
     <>
@@ -68,7 +59,7 @@ function DoctorsManagement() {
               >
                 <div className="flex items-center gap-4">
                   <Image
-                    src={getDoctorAvatarSrc(doctor)}
+                    src={getDoctorAvatarSrc(doctor.imageUrl, doctor.name)}
                     alt={doctor.name}
                     width={48}
                     height={48}

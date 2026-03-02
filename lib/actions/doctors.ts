@@ -1,27 +1,27 @@
-"use server"
+"use server";
 
-import { revalidatePath } from "next/cache"
-import { prisma } from "../prisma"
-import { generateAvatar } from "../utils"
-import { Gender } from "@prisma/client"
+import { Gender } from "@prisma/client";
+import { prisma } from "../prisma";
+import { generateAvatar } from "../utils";
+import { revalidatePath } from "next/cache";
 
-export async function getDoctors(){
-    try {
-        const doctors=await prisma.doctor.findMany({
-            include:{
-                _count:{select:{appointments:true}}
-            },
-            orderBy:{createdAt:"desc"}
-        })
+export async function getDoctors() {
+  try {
+    const doctors = await prisma.doctor.findMany({
+      include: {
+        _count: { select: { appointments: true } },
+      },
+      orderBy: { createdAt: "desc" },
+    });
 
-        return doctors.map((doctor)=>({
-            ...doctor,
-            appointmentCount:doctor._count.appointments
-        }))
-    } catch (error) {
-        console.error("Failed to fetch doctors", error)
-        throw new Error("Failed to fetch doctors")
-    }
+    return doctors.map((doctor) => ({
+      ...doctor,
+      appointmentCount: doctor._count.appointments,
+    }));
+  } catch (error) {
+    console.log("Error fetching doctors:", error);
+    throw new Error("Failed to fetch doctors");
+  }
 }
 
 interface CreateDoctorInput {
@@ -99,5 +99,27 @@ export async function updateDoctor(input: UpdateDoctorInput) {
   } catch (error) {
     console.error("Error updating doctor:", error);
     throw new Error("Failed to update doctor");
+  }
+}
+
+export async function getAvailableDoctors() {
+  try {
+    const doctors = await prisma.doctor.findMany({
+      where: { isActive: true },
+      include: {
+        _count: {
+          select: { appointments: true },
+        },
+      },
+      orderBy: { name: "asc" },
+    });
+
+    return doctors.map((doctor) => ({
+      ...doctor,
+      appointmentCount: doctor._count.appointments,
+    }));
+  } catch (error) {
+    console.error("Error fetching available doctors:", error);
+    throw new Error("Failed to fetch available doctors");
   }
 }
