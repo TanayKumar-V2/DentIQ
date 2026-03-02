@@ -11,8 +11,8 @@ function Hero() {
 
         </div>
       </div>
-      <div className="absolute top-20 left-1/4 w-72 h-72 bg-gradient-to-r from-primary/20 to-primary/10 rounded-full blur-3xl"/>
-      <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-gradient-to-r from-primary/15 to-primary/5 rounded-full blur-3xl"/>
+      <div className="absolute top-20 left-1/4 w-72 h-72 bg-gradient-to-r from-primary/20 to-primary/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-gradient-to-r from-primary/15 to-primary/5 rounded-full blur-3xl" />
 
       <div className="relative z-10 w-full px-6">
         <div className="max-w-7xl mx-auto">
@@ -29,11 +29,11 @@ function Hero() {
                   <span className="bg-gradient-to-br from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
                     Your Dental
                   </span>
-                  <br/>
+                  <br />
                   <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
                     questions
                   </span>
-                  <br/>
+                  <br />
                   <span className="bg-gradient-to-br from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
                     answered instantly
                   </span>
@@ -46,7 +46,7 @@ function Hero() {
                 <SignUpButton mode="modal">
                   <Button size={"lg"}>
                     <MicIcon className="mr-2 size-5" />
-                    Try Voice Chat 
+                    Try Voice Chat
                   </Button>
                 </SignUpButton>
                 <SignUpButton mode="modal">
@@ -91,7 +91,7 @@ function Hero() {
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
                       <div className="flex items-center gap-1">
-                        {[1,2,3,4,5].map((star)=>(
+                        {[1, 2, 3, 4, 5].map((star) => (
                           <StarIcon key={star} className="h-4 w-4 fill-amber-400 text-amber-400" />
                         ))}
                       </div>
@@ -106,14 +106,14 @@ function Hero() {
               </div>
             </div>
             <div className="relative lg:pl-8">
-              <div className="absolute -top-4 -left-4 w-24 h-24 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl rotate-45 blur-xl"/>
+              <div className="absolute -top-4 -left-4 w-24 h-24 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl rotate-45 blur-xl" />
               <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br from-primary/15 to-primary/5 rounded-full blur-2xl "></div>
               <Image
                 src={"/hero2.png"}
                 alt="hero"
                 width={600}
                 height={600}
-                className=" h-180 w-120"
+                className="w-full h-auto max-w-[480px] object-contain mx-auto"
               />
             </div>
           </div>
